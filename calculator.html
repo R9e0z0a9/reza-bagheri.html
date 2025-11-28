@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title> ماشین حساب</title>
+</head>
+<body>
+   <p>رضا باقری کلاس یازدهم شبکه (ب) </p>
+   <p>برای کار کردن بعد از وارد کردن عدد وقتی عمل را زدیم بعد از ان دوباره باید کلیک کنیم جاو عدد و عدد دوم را وارد کنیم</p>
+<div class="calc">
+  <input id="display" placeholder="عدد تایپ کن..." autofocus>
+
+  <div class="row">
+    <button class="btn" onclick="addOp('+')">+</button>
+    <button class="btn" onclick="addOp('-')">-</button>
+    <button class="btn" onclick="addOp('*')">*</button>
+    <button class="btn" onclick="addOp('/')">/</button>
+  </div>
+
+  <div class="row">
+    <button class="btn" onclick="calculate()">=</button>
+    <button class="btn" onclick="clearDisplay()">C</button>
+  </div>
+</div>
+
+<script>
+  let display = document.getElementById("display");
+
+  // فقط ورود اعداد از کیبورد
+  display.addEventListener("keypress", function(e) {
+    const allowed = "0123456789.";
+    if (!allowed.includes(e.key)) {
+      e.preventDefault(); // جلوی ورود غیرعدد را می‌گیرد
+    }
+  });
+
+  // افزودن عملگر با دکمه
+  function addOp(op) {
+    display.value += " " + op + " ";
+  }
+
+  // محاسبه
+  function calculate() {
+    try {
+      const res = Function("return " + display.value)();
+      display.value = res;
+    } catch {
+      display.value = "خطا!";
+    }
+  }
+
+  // پاک کردن
+  function clearDisplay() {
+    display.value = "";
+  }
+</script>
+</body>
+</html>
